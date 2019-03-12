@@ -6,7 +6,7 @@ import React, { Component } from 'react';
     constructor(props) {
       super();
       this.state ={
-        input : "",
+        inputTemp : "",
         inputUnit : "",
         studentInput : "",
         studentInputUnit : "",
@@ -36,21 +36,13 @@ import React, { Component } from 'react';
          onSubmit(e){
             e.preventDefault();
             const studentRecord = {
-                input : this.state.input,
-                
+                inputTemp : this.state.input,
+                inputUnit : this.state.inputUnit,
                 studentInput :this.state.studentInput,
                 studentInputUnit : this.state.studentInputUnit
-            }
-            console.log(studentRecord)          
-            const inputSplitArray = studentRecord.input.split(" ")
-            console.log( inputSplitArray[0]);
-            console.log( inputSplitArray[1]);
-            let Unit = mapUnit( inputSplitArray[1] )
-            console.log("Unit"+ Unit)
-            studentRecord.inputTemp= inputSplitArray[0]
+            }                  
             
-            
-            const result1  =  tryConvert(studentRecord.inputTemp, Unit)
+            const result1  =  tryConvert(studentRecord.inputTemp, studentRecord.inputUnit)
             console.log("result1 "+ result1 )
             const result2=   tryConvert(studentRecord.studentInput, studentRecord.studentInputUnit)
             console.log("result2 "+ result2 )
@@ -73,10 +65,10 @@ import React, { Component } from 'react';
                     <h4 class="display-4 text-center">Student Records</h4>
                     <form onSubmit={this.onSubmit}>
                       <div class="form-group">
-                          <input type="text" class="form-control form-control-lg" name="input" placeholder="Input For temperature" value = {this.state.input} 
+                          <input type="text" class="form-control form-control-lg" name="input" placeholder="Input For temperature" value = {this.state.inputTemp} 
                           onChange={this.onChange} onKeyPress={this.onKeyPress}/>
                       </div>
-                      {/*<div class="form-group">
+                      <div class="form-group">
                           <select class="form-control form-control-lg" placeholder="Input temperature Unit" name="inputUnit" value = {this.state.inputUnit} onChange={this.onChange} onKeyPress={this.onKeyPress}>
                               <option value="">Select Unit</option>
                               <option value="K">Kelvin</option>
@@ -84,7 +76,7 @@ import React, { Component } from 'react';
                               <option value="F">Fahrenheit</option>
                               <option value="R">Rankine</option>
                           </select>
-                       </div>*/}
+                       </div>
                       <div class="form-group">
                           <input type="text" class="form-control form-control-lg" placeholder="Student Input" name="studentInput" value = {this.state.studentInput} onChange={this.onChange} onKeyPress={this.onKeyPress}/>
                       </div>
